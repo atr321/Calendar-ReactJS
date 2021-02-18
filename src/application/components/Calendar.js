@@ -1,25 +1,32 @@
 import { useState } from 'react';
 import AdicionarReminder from './Reminder.js';
+import Button from '@material-ui/core/Button';
 import '../styles/Calendar.css';
 import CalendarGrid from './CalendarGrid.js';
 
 export default function Calendar() {
-    const [AdicionarReminderPopup, setAdicionarReminderPopup] = useState(false);
+    const [open, setOpen] = useState(false);
 
-    function handleAdicionarReminderPopup() {
-        setAdicionarReminderPopup(!AdicionarReminderPopup);
-    }
+    const handleClickOpen = () => {
+      setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   
   return (
     <div id="calendar">
         
         <CalendarGrid/>
-
-        <button type="button" onClick={() => setAdicionarReminderPopup(true)} className="reminder-btn">Criar lembrete</button>
         
+        <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+                    Create Reminder
+        </Button>
+
         <div id="reminder">
 
-        {AdicionarReminderPopup ? <AdicionarReminder closePopup={handleAdicionarReminderPopup} /> : null}
+        <AdicionarReminder open={open} closePopup={handleClose}/>
 
         </div>
 
