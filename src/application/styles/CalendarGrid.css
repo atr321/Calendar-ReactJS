@@ -1,0 +1,44 @@
+#month{
+    display: flex;
+    background-color: #eee;
+    justify-content: space-between;
+}
+
+.left::before{
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid #888;
+    border-top: 8px solid transparent;
+    content: '';
+    display: inline-block;
+    height: 0;
+    margin-right: 10px;
+    vertical-align: middle;
+    width: 0;
+}
+
+.left{
+    border:0;
+}
+
+.right::before{
+    border-bottom: 8px solid transparent;
+    border-left: 8px solid #888;
+    border-top: 8px solid transparent;
+    content: '';
+    display: inline-block;
+    height: 0;
+    margin-right: 10px;
+    vertical-align: middle;
+    width: 0;
+}
+
+.right{
+    border:0;
+}
+
+.week{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 32px;
+    
+}
