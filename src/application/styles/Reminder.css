@@ -1,4 +1,31 @@
 #container{
-    background-color: red;
+    background-color: grey;
     width: 40%;
+}
+.blueButton{
+    color: #0800e1 !important;
+}
+.blueText{
+    color: #0800e1;
+}
+
+.redButton{
+    color: #e90000 !important;
+}
+.redText{
+    color: #e90000 ;
+}
+
+.greenButton{
+    color: #8ce705 !important;
+}
+.greenText{
+    color: #8ce705;
+}
+
+.greyButton{
+    color: #979797 !important;
+}
+.greyText{
+    color: #979797;
 }

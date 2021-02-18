@@ -55,7 +55,6 @@ export default function CalendarGrid(){
 
 
     function setData(year, month){
-
         const date = new Date(year, month, 1);
 
         const monthDays = isLeapYear(year);
@@ -88,8 +87,7 @@ export default function CalendarGrid(){
                     {id:'thirdWeek',  data:thirdWeek}, 
                     {id:'forthWeek',  data:forthWeek},
                     {id:'fifthWeek',  data:fifthWeek},
-                    {id:'sixWeek',  data:sixWeek}
-                    
+                    {id:'sixWeek',  data:sixWeek} 
                     ]);
     }
     
@@ -112,6 +110,10 @@ export default function CalendarGrid(){
 
       }
 
+    function changeTheme(){
+
+    }
+
     
     return(
         
@@ -124,7 +126,6 @@ export default function CalendarGrid(){
             <span>
                 <button onClick={ () => nextCalendar()} className="right"></button>
             </span>
-            
             </header>
             <div className="week">
             {WEEKDAYS.map((weekDay,i) => <div key={i} className="weekday">{weekDay}</div>)}
