@@ -1,6 +1,5 @@
 #container{
     background-color: rgb(219, 219, 219);
-    width: 40%;
 }
 .blueButton{
     color: #0800e1 !important;
@@ -28,4 +27,36 @@
 }
 .greyText{
     color: #979797;
+}
+
+.yellowButton{
+    color: #efff00 !important;
+}
+.yellowText{
+    color: #efff00;
+}
+
+.text-reminder{
+    width: 42%;
+}
+#texts-reminder{
+    display: flex;
+    justify-content: space-between;
+}
+#date{
+    display: flex;
+    justify-content: space-between;
+}
+.date-clock{
+    width: 42%;
+}
+#city{
+    display: flex;
+    justify-content: space-between;
+}
+.state-city{
+    width: 42%;
+}
+#colors{
+    padding: 15px 25px 0px;
 }

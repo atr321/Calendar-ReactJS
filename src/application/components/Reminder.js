@@ -1,4 +1,5 @@
 import { useState } from 'react';
+//import ReactDOM from 'react-dom';
 import StatesCities from '../../utils/estados-cidades.json';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -12,7 +13,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent'
 import InputLabel from '@material-ui/core/InputLabel';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
 import '../styles/Reminder.css';
 
 export default function Reminder({ open, closePopup }) {
@@ -25,9 +25,17 @@ export default function Reminder({ open, closePopup }) {
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
 
+    /*useEffect( () => {
+        updateCard()
+    },[]);
+*/
     
 
     const reminders = JSON.parse(localStorage.getItem('reminders')) || [];
+    
+    reminders.map(reminder => 
+        console.log(reminder.title)
+        )
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -37,6 +45,8 @@ export default function Reminder({ open, closePopup }) {
         reminders.push(reminder);
 
         updateLocalStorage()
+        
+        //updateCard()
         closePopup()
 
 
@@ -44,6 +54,15 @@ export default function Reminder({ open, closePopup }) {
         console.log(lembrete.titulo)
         });*/
     }
+    /*
+    function updateCard(){
+        console.log("oila")
+        ReactDOM.render(
+            reminders.title,
+            document.getElementById('reminder-card')
+          );
+    }*/
+    
 
     function updateLocalStorage() {
         localStorage.setItem('reminders', JSON.stringify(reminders))
@@ -56,7 +75,6 @@ export default function Reminder({ open, closePopup }) {
         setSelectedValue(event.target.value);
     };
 
-
     return (
         <div id="container">
             <div>
@@ -67,32 +85,31 @@ export default function Reminder({ open, closePopup }) {
 
                     <form onSubmit={handleSubmit}>
 
-                    <DialogContent>
+                    <DialogContent id="texts-reminder">
 
-                        <TextField id="standard-basic" onChange={(e) => setTitle(e.target.value)} required label="Title" />
-                        <TextField id="standard-basic" onChange={(e) => setDescription(e.target.value)} maxLength="30" label="Description" />
-
+                        <TextField className="text-reminder" onChange={(e) => setTitle(e.target.value)} required label="Title" />
+                        <TextField inputProps={{maxLength:30}} className="text-reminder" onChange={(e) => setDescription(e.target.value)} type="text" maxLength="30" label="Description" />
 
                     </DialogContent>
 
-                    <DialogContent>
+                    <DialogContent id="date">
                         <TextField
                             onChange={(e) => setDate(e.target.value)}
-                            id="date"
+                            className="date-clock"
                             required
                             type="date"
                         />
                         <TextField
                             onChange={(e) => setTime(e.target.value)}
-                            id="time"
+                            className="date-clock"
                             required
                             type="time"
                         />
                     </DialogContent>
 
-                    <DialogContent>
+                    <DialogContent id="city">
 
-                        <FormControl >
+                        <FormControl className="state-city">
                             <InputLabel >State</InputLabel>
                             
                             <Select 
@@ -111,7 +128,7 @@ export default function Reminder({ open, closePopup }) {
                             </Select>
                         </FormControl>
 
-                        <FormControl >
+                        <FormControl className="state-city">
                             {state.length > 0 && <>
                             <InputLabel >City</InputLabel>
                             
@@ -138,12 +155,13 @@ export default function Reminder({ open, closePopup }) {
 
                     </DialogContent>
 
-                    <DialogContent>
-                        <RadioGroup row aria-label="gender" name="gender1" onChange={handleChange}>
+                    <DialogContent id="colors">
+                        <RadioGroup row name="colors" onChange={handleChange}>
                             <FormControlLabel onChange={(e) => setColor(e.target.value)} value="blue" className="blueText" control={<Radio className="blueButton" size="small" />} label="Blue" />
                             <FormControlLabel onChange={(e) => setColor(e.target.value)} value="red" className="redText" control={<Radio className="redButton" size="small" />} label="Red" />
                             <FormControlLabel onChange={(e) => setColor(e.target.value)} value="green" className="greenText" control={<Radio className="greenButton" size="small" />} label="Green" />
                             <FormControlLabel onChange={(e) => setColor(e.target.value)} value="grey" className="greyText" control={<Radio className="greyButton" size="small" />} label="Grey" />
+                            <FormControlLabel onChange={(e) => setColor(e.target.value)} value="yellow" className="yellowText" control={<Radio className="yellowButton" size="small" />} label="Yellow" />
                         </RadioGroup>
                     </DialogContent>
                     <DialogActions>

@@ -20,7 +20,7 @@ export default function Calendar() {
         
         <CalendarGrid/>
         
-        <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+        <Button id="reminder-button" variant="outlined" color="primary" onClick={handleClickOpen}>
                     Create Reminder
         </Button>
 

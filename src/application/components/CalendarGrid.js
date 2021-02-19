@@ -1,4 +1,6 @@
 import {useState, useEffect} from 'react';
+import moment from 'moment';
+
 import { MONTHS, WEEKDAYS } from '../../utils/consts.js';
 import '../styles/CalendarGrid.css';
 
@@ -7,8 +9,9 @@ export default function CalendarGrid(){
 
     const [month, setMonth] = useState(date.getMonth());
     const [year, setYear] = useState(date.getUTCFullYear());
-    const [calendar, setCalendar] = useState([{ id:'teste', data:[] }]);
-
+    const [calendar, setCalendar] = useState([{ id:'teste',reminder:[], data:[] }]);
+    const [reminderDate, setReminderDate] = useState([]);
+    
     useEffect( () => {
         setData(year, month)
     }, []);
@@ -22,27 +25,38 @@ export default function CalendarGrid(){
     }
 
     const setFirstWeek = (weekDay, monthDays, lastMonth, month) =>
-    
-        WEEKDAYS.map((_,index) => {
+        
+            WEEKDAYS.map((_,index) => {
             if (index < weekDay){
                 const value = (monthDays[lastMonth] - (weekDay - index) +1);
-                return{value:value, 
-                       class:'otherMonthDay'};
-                
+                const reminders = JSON.parse(localStorage.getItem('reminders')) || [];
+                let a = {};
+                reminders.map((reminder) => {
+                    let dateTime = moment(reminder.date + " " + reminder.time);
+                    if (dateTime.date() == value){
+                        setReminderDate(reminder.title)
+                        a ={value:value, 
+                            reminder: reminder.title, 
+                            class:'otherMonthDay'}
+                            console.log(a)
+                    }console.log(a)
+                    a = {value:value, 
+                        class:'otherMonthDay'}
+                }); return a
             }
             const value = (index - weekDay) + 1;
             return {value:value, 
-                    class:''}
+                    class:'day'}
         });
     
     const setMiddleWeek = (pastWeekDay) =>
 
         WEEKDAYS.map((_,index) => {
             const day = pastWeekDay + index + 1;
-            return{ value:day, class:'' } 
+            return{ value:day, class:'day' } 
         });
 
-    const setFinal2Weeks = ( pastWeekDay,monthDays ) =>
+    const setFinal2Weeks = ( pastWeekDay,monthDays, month ) =>
 
         WEEKDAYS.map((_,index) => {
             const day = pastWeekDay + index + 1;
@@ -50,7 +64,7 @@ export default function CalendarGrid(){
                 return{ value: day > monthDays[month] ? (day - monthDays[month]) : day,
                     class:'otherMonthDay'};
             }
-            return{value:day,class:''};
+            return{value:day,class:'day'};
         });
 
 
@@ -69,8 +83,8 @@ export default function CalendarGrid(){
     }
 
     function setWeeks(weekDay, monthDays, lastMonth, month) {
-
         const firstWeek = setFirstWeek(weekDay, monthDays, lastMonth, month );
+        console.log(firstWeek)
 
         const secondWeek = setMiddleWeek( firstWeek[6].value );
 
@@ -78,11 +92,11 @@ export default function CalendarGrid(){
 
         const forthWeek = setMiddleWeek( thirdWeek[6].value );
 
-        const fifthWeek = setFinal2Weeks( forthWeek[6].value, monthDays );
+        const fifthWeek = setFinal2Weeks( forthWeek[6].value, monthDays, month );
 
-        const sixWeek = setFinal2Weeks( fifthWeek[6].value, monthDays );
+        const sixWeek = setFinal2Weeks( fifthWeek[6].value, monthDays, month );
         
-       setCalendar([{id:'firstWeek',  data:firstWeek}, 
+       setCalendar([{id:'firstWeek', reminder:reminderDate, data:firstWeek}, 
                     {id:'secondWeek', data:secondWeek}, 
                     {id:'thirdWeek',  data:thirdWeek}, 
                     {id:'forthWeek',  data:forthWeek},
@@ -110,9 +124,8 @@ export default function CalendarGrid(){
 
       }
 
-    function changeTheme(){
-
-    }
+      
+      
 
     
     return(
@@ -122,12 +135,13 @@ export default function CalendarGrid(){
             <span>
                 <button onClick={ () => previousCalendar()}  className="left"></button>
             </span>
-            <span>{MONTHS[month]} de {year}</span>
+            <span id="mes-ano">{MONTHS[month]} {year}</span>
             <span>
                 <button onClick={ () => nextCalendar()} className="right"></button>
             </span>
             </header>
-            <div className="week">
+            <div className="calendarContent">
+            <div className="weekdays">
             {WEEKDAYS.map((weekDay,i) => <div key={i} className="weekday">{weekDay}</div>)}
             </div>
             {calendar.map(week =>
@@ -135,13 +149,16 @@ export default function CalendarGrid(){
                 {week.data.map(day =>
                     <div
                     key={`${day.mount}${day.value}`}
-                    className={"day"}
+                    className={day.class}
                     >
-                    {day.value < 10 && day.value !== ' ' ? `0${day.value}` : day.value}
+                        <p className="calendar-text">{day.value < 10 && day.value !== ' ' ? `0${day.value}` : day.value}</p>
+                        <div id="reminder-card">{day.reminder}</div>
+                    
                     </div>,
                 )}
                 </div>,
             )}
+            </div>
             
         </div>
     )

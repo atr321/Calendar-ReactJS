@@ -1,3 +1,16 @@
+header{
+    justify-content: center;
+    width: 60%;
+    display: inline-flex;
+    background-color: #6c6c6c;
+}
+
+#mes-ano{
+    padding: 10px;
+    font-weight: bold;
+    font-size: 24px;
+}
+
 #month{
     display: flex;
     background-color: #eee;
@@ -11,13 +24,19 @@
     content: '';
     display: inline-block;
     height: 0;
-    margin-right: 10px;
+    margin: 20px 14px 14px 14px;
     vertical-align: middle;
     width: 0;
 }
 
 .left{
     border:0;
+    background-color: #6c6c6c;
+    outline-color: transparent;
+    outline-style: unset;
+}
+.left:hover{
+    background-color: grey;
 }
 
 .right::before{
@@ -27,18 +46,41 @@
     content: '';
     display: inline-block;
     height: 0;
-    margin-right: 10px;
+    margin: 20px 14px 14px 14px;
     vertical-align: middle;
     width: 0;
 }
 
 .right{
     border:0;
+    background-color: #6c6c6c;
+    outline-color: transparent;
+    outline-style: unset;
+}
+.right:hover{
+    background-color: grey;
 }
 
 .week{
     display: flex;
-    justify-content: space-between;
-    margin: 0 32px;
+    justify-content: space-around;
+    padding: 25px 40px;
     
+}
+.week:last-child{
+    padding-bottom: 90px;
+}
+.weekdays{
+    display: flex;
+    justify-content: space-evenly;
+    margin: 3% 2% 0% 2%;
+}
+
+.calendarContent{
+    width: 60%;
+    display: inline-block;
+    background-color: #949494;
+}
+.otherMonthDay{
+    color: #6d6b6b;
 }
